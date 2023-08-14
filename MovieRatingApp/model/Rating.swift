@@ -10,7 +10,7 @@ import Foundation
     This class represents a Rating which can be used either on a Movie or Comment type.
  */
 
-public class Rating : Comparable {
+public class Rating : Comparable, Decodable {
     
     /**
         The total number of stars given to this rating.

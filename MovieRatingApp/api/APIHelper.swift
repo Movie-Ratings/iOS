@@ -7,6 +7,16 @@
 
 import Foundation
 
+/**
+ READ ME
+ 
+ Error: Error Domain=NSURLErrorDomain Code=-1002 "unsupported URL" UserInfo={NSLocalizedDescription=unsupported URL, NSErrorFailingURLStringKey=localhost:8080/api/movie/, NSErrorFailingURLKey=localhost:8080/api/movie/, _NSURLErrorRelatedURLSessionTaskErrorKey=(
+     "LocalDataTask <CF7C666D-9CFE-4BF1-9789-5A0148C0164E>.<1>"
+ ), _NSURLErrorFailingURLSessionTaskErrorKey=LocalDataTask <CF7C666D-9CFE-4BF1-9789-5A0148C0164E>.<1>, NSUnderlyingError=0x600000a3ba50 {Error Domain=kCFErrorDomainCFNetwork Code=-1002 "(null)"}}
+ 
+ The above error occurs because the URL given is not correct / supported. Verify that the given URL is prefixed with "http://"
+ */
+
 public class APIHelper {
     public static func getUsers() {
         print("Inside getUsers()")
@@ -89,6 +99,55 @@ public class APIHelper {
             }
         }
         dataTask.resume()
+    }
+    
+    static func insertMovies(into : Manager, completion: @escaping () -> ()) {
+        print("Inside insertMovies()")
+        guard let url = URL(string : "http://localhost:8080/api/movie/") else {
+            print("URL has mistake")
+            completion()
+            return
+        }
+        
+        let session = URLSession.shared
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        
+        let dataTask = session.dataTask(with: url) { data, response, error in
+            print("Inside dataTask")
+            if let error = error {
+                // Handle error
+                print("Error: \(error)")
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                print("Status code: \(httpResponse.statusCode)")
+                
+                if let data = data {
+                    if let movies = processMovies(data : data){
+                        into.insertMovies(movies: movies)
+                        completion()
+                    }
+                }
+            }
+        }
+        dataTask.resume()
+        
+    }
+    
+    private static func processMovies(data : Data) -> [Movie]? {
+        do {
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode([Movie].self, from: data)
+            return jsonData
+        } catch {
+            print(String(describing: error))
+        }
+        return nil
     }
 }
 

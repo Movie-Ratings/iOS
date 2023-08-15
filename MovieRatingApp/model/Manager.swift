@@ -11,6 +11,8 @@ class Manager : ObservableObject {
     
     @Published var movies : [Movie]
     
+    @Published var selectedMovie : Movie?
+    
     public func insertMovies(movies : [Movie]) {
         self.movies = movies
     }

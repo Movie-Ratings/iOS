@@ -25,6 +25,7 @@ struct MovieView : View {
      The current AppState.
      */
     @EnvironmentObject var current : AppState
+    @EnvironmentObject var manager : Manager
     
     var body : some View {
         VStack {
@@ -39,6 +40,9 @@ struct MovieView : View {
             if let url = movie.posterURL() {
                 imageLoader.loadImage(from : url)
             }
+        }.onTapGesture {
+            manager.selectedMovie = self.movie
+            current.state = AppState.MOVIE_DETAIL_VIEW
         }
     }
     
@@ -50,7 +54,7 @@ struct MovieView : View {
 /**
  This class is used to load images for a Movie.
  */
-private class ImageLoader : ObservableObject {
+class ImageLoader : ObservableObject {
     
     @Published var image : UIImage?
     

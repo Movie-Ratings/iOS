@@ -22,6 +22,7 @@ struct ContentView: View {
             case AppState.LOGIN : LoginView()
             case AppState.LOADING : LoadingView()
             case AppState.HOME_PAGE : HomePage()
+            case AppState.MOVIE_DETAIL_VIEW : MovieDetailView(movie : manager.selectedMovie ?? Movie.example())
             default : LoadingView()
             }
         }

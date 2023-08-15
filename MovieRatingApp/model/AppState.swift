@@ -12,6 +12,7 @@ class AppState : ObservableObject {
     public static let LOADING = -1
     public static let LOGIN = 0
     public static let HOME_PAGE = 1
+    public static let MOVIE_DETAIL_VIEW = 2
     
     @Published var state : Int
     

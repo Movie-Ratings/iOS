@@ -17,6 +17,7 @@ struct ContentView: View {
             switch(app.state) {
             case AppState.LOGIN : LoginView()
             case AppState.LOADING : LoadingView()
+            case AppState.HOME_PAGE : HomePage()
             default : LoadingView()
             }
         }

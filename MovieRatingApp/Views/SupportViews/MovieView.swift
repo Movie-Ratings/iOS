@@ -11,22 +11,31 @@ import Combine
 
 struct MovieView : View {
     
+    /**
+     The Movie that this View is showing.
+     */
     var movie : Movie
     
+    /**
+     The ImageLoader which is used to load and store the image of this movie.
+     */
     @StateObject private var imageLoader = ImageLoader()
     
+    /**
+     The current AppState.
+     */
+    @EnvironmentObject var current : AppState
     
     var body : some View {
         VStack {
-            Text(movie.title)
-            Text(movie.overview)
             if let image = imageLoader.image {
-                Image(uiImage : image)
+                Image(uiImage : image).resizable().frame(width : 250, height : 450).cornerRadius(50)
             }
             else {
                 Image(systemName : "globe")
             }
-        }.padding().overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1)).onAppear() {
+            
+        }.padding().onAppear() {
             if let url = movie.posterURL() {
                 imageLoader.loadImage(from : url)
             }
@@ -38,7 +47,10 @@ struct MovieView : View {
     }
 }
 
-class ImageLoader : ObservableObject {
+/**
+ This class is used to load images for a Movie.
+ */
+private class ImageLoader : ObservableObject {
     
     @Published var image : UIImage?
     
@@ -54,4 +66,10 @@ class ImageLoader : ObservableObject {
         }
 
     private var cancellables: Set<AnyCancellable> = []
+}
+
+struct MovieView_Previews: PreviewProvider {
+    static var previews: some View {
+        MovieView(movie : Movie.example()).environmentObject(AppState())
+    }
 }

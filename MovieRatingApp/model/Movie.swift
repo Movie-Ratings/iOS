@@ -65,7 +65,7 @@ class Movie : Decodable, Identifiable {
      */
     var release_date : String
     
-    init(id: Int, title: String, rating: Rating, comments: [Comment], overview: String, poster_path: String, backdrop_path: String, release_date: String) {
+    init(id: Int, title: String, rating: Rating?, comments: [Comment]?, overview: String, poster_path: String, backdrop_path: String, release_date: String) {
         self.id = id
         self.title = title
         self.rating = rating
@@ -82,6 +82,10 @@ class Movie : Decodable, Identifiable {
     
     func backdropURL() -> URL? {
         return URL(string : "https://image.tmdb.org/t/p/w1280/\(backdrop_path)")
+    }
+    
+    static func example() -> Movie {
+        return Movie(id : 346698, title : "Barbie", rating : nil, comments : nil, overview : "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.", poster_path: "/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg", backdrop_path: "/tTfnd2VrlaZJSBD9HUbtSF3CqPJ.jpg", release_date: "2023-07-19")
     }
     
 }

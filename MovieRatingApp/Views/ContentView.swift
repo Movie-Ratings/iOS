@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+//TO DO : (1) Implement displaying the poster image for each movie.
+//        (2) Make it so you can click on a movie and go into details about it
+//        (3) Once in details, be able to rate and make comments regarding the movie -- this should send information to the API to reflect changes.
+
 struct ContentView: View {
     
     @EnvironmentObject var app : AppState

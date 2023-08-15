@@ -10,19 +10,21 @@ import SwiftUI
 
 struct LoadingView : View {
     @EnvironmentObject var app : AppState
+    @EnvironmentObject var manager : Manager
     
     
     var body : some View {
         VStack {
             Text("Loading ...")
         }.onAppear(perform : {
-            print("Changing app state")
-            app.state = AppState.LOGIN
+            manager.load() {
+                app.state = AppState.LOGIN
+            }
         })
     }
 }
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView().environmentObject(AppState())
+        LoadingView().environmentObject(AppState()).environmentObject(Manager())
     }
 }

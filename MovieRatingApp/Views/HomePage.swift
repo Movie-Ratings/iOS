@@ -8,4 +8,20 @@
 import Foundation
 import SwiftUI
 
-
+struct HomePage : View {
+    
+    @EnvironmentObject var app : AppState
+    @EnvironmentObject var manager : Manager
+    
+    var body : some View {
+        ScrollView {
+            Spacer()
+            VStack {
+                ForEach(manager.movies) {movie in
+                    MovieView(movie : movie).padding()
+                }
+            }
+            Spacer()
+        }
+    }
+}

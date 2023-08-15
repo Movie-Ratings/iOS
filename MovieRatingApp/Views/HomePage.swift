@@ -14,10 +14,14 @@ struct HomePage : View {
     @EnvironmentObject var manager : Manager
     
     var body : some View {
-        VStack {
-            ForEach(manager.movies) {movie in
-                MovieView(movie : movie)
+        ScrollView {
+            Spacer()
+            VStack {
+                ForEach(manager.movies) {movie in
+                    MovieView(movie : movie).padding()
+                }
             }
+            Spacer()
         }
     }
 }

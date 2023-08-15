@@ -16,7 +16,7 @@ struct MovieView : View {
         VStack {
             Text(movie.title)
             Text(movie.overview)
-        }
+        }.padding().overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
     }
     
     init(movie : Movie) {

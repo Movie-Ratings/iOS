@@ -76,12 +76,12 @@ class Movie : Decodable, Identifiable {
         self.release_date = release_date
     }
     
-    func posterURL() -> String {
-        return "https://image.tmdb.org/t/p/w500/\(poster_path)"
+    func posterURL() -> URL? {
+        return URL(string : "https://image.tmdb.org/t/p/w500/\(poster_path)") 
     }
     
-    func backdropURL() -> String {
-        return "https://image.tmdb.org/t/p/w1280/\(backdrop_path)"
+    func backdropURL() -> URL? {
+        return URL(string : "https://image.tmdb.org/t/p/w1280/\(backdrop_path)")
     }
     
 }

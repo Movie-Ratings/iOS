@@ -20,9 +20,9 @@ class Manager : ObservableObject {
     /**
         Loads data from the backend into a model accessble by the front end.
      */
-    public func load(completion : @escaping () -> ()) {
-        APIHelper.insertMovies(into: self) {
-            completion()
+    public func load(completion : @escaping (Bool) -> ()) {
+        APIHelper.insertMovies(into: self) { result in
+            completion(result)
         }
     }
     

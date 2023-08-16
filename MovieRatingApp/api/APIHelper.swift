@@ -101,11 +101,11 @@ public class APIHelper {
         dataTask.resume()
     }
     
-    static func insertMovies(into : Manager, completion: @escaping () -> ()) {
+    static func insertMovies(into : Manager, completion: @escaping (Bool) -> ()) {
         print("Inside insertMovies()")
         guard let url = URL(string : "http://localhost:8080/api/movie/") else {
             print("URL has mistake")
-            completion()
+            completion(false)
             return
         }
         
@@ -121,6 +121,7 @@ public class APIHelper {
             if let error = error {
                 // Handle error
                 print("Error: \(error)")
+                completion(false)
                 return
             }
             
@@ -130,10 +131,11 @@ public class APIHelper {
                 if let data = data {
                     if let movies = processMovies(data : data){
                         into.insertMovies(movies: movies)
-                        completion()
+                        completion(true)
                     }
                 }
             }
+            completion(false)
         }
         dataTask.resume()
         

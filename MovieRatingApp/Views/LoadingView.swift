@@ -15,10 +15,12 @@ struct LoadingView : View {
     
     var body : some View {
         VStack {
-            Text("Loading ...")
+            LoadingIcon()
         }.onAppear(perform : {
-            manager.load() {
-                app.state = AppState.LOGIN
+            manager.load() { success in
+                if(success) {
+                    app.state = AppState.LOGIN
+                }
             }
         })
     }

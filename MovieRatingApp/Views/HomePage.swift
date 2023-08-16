@@ -25,6 +25,9 @@ struct HomePage : View {
             ScrollView {
                 VStack {
                     ForEach(manager.movies) {movie in
+                        if(movie !== manager.movies[0]) {
+                            Rectangle().frame(width: .infinity, height: 1).padding()
+                        }
                         MovieView(movie : movie).padding()
                     }
                 }

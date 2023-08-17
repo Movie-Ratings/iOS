@@ -106,15 +106,3 @@ struct LoadingIcon : View {
         self.time = 30
     }
 }
-
-class HomePageSelection : ObservableObject {
-    static let POPULAR = "Popular"
-    static let GENRE = "Genre"
-    static let NONE = "N/A"
-    
-    @Published var selection : String
-    
-    init() {
-        selection = HomePageSelection.NONE
-    }
-}

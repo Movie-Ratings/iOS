@@ -13,12 +13,15 @@ struct HomePageSelector : View {
     @EnvironmentObject var selection : HomePageSelection
     
     var body : some View {
-        
-        HStack {
-            RoundedRectangleWithText(text : HomePageSelection.POPULAR).padding().environmentObject(selection)
-            RoundedRectangleWithText(text : HomePageSelection.GENRE).padding().environmentObject(selection)
+        ScrollView(.horizontal) {
+            HStack {
+                RoundedRectangleWithText(text : HomePageSelection.POPULAR).padding().environmentObject(selection)
+                RoundedRectangleWithText(text : HomePageSelection.GENRE).padding().environmentObject(selection)
+                RoundedRectangleWithText(text : HomePageSelection.MY_LIST).padding().environmentObject(selection)
+                RoundedRectangleWithText(text : HomePageSelection.WATCHED).padding().environmentObject(selection)
+            }
+            .overlay(RoundedRectangle(cornerRadius: 50).stroke(Color.blue, lineWidth: 2))
         }
-        .overlay(RoundedRectangle(cornerRadius: 50).stroke(Color.blue, lineWidth: 2))
     }
 }
 
@@ -38,5 +41,19 @@ struct RoundedRectangleWithText: View {
         }.onTapGesture {
             selection.selection = text
         }
+    }
+}
+
+class HomePageSelection : ObservableObject {
+    static let POPULAR = "Popular"
+    static let GENRE = "Genre"
+    static let MY_LIST = "My List"
+    static let WATCHED = "Watched"
+    static let NONE = "N/A"
+    
+    @Published var selection : String
+    
+    init() {
+        selection = HomePageSelection.NONE
     }
 }

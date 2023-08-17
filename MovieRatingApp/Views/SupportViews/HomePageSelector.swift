@@ -13,14 +13,15 @@ struct HomePageSelector : View {
     @EnvironmentObject var selection : HomePageSelection
     
     var body : some View {
-        ScrollView(.horizontal) {
-            HStack {
-                RoundedRectangleWithText(text : HomePageSelection.POPULAR).padding().environmentObject(selection)
-                RoundedRectangleWithText(text : HomePageSelection.GENRE).padding().environmentObject(selection)
-                RoundedRectangleWithText(text : HomePageSelection.MY_LIST).padding().environmentObject(selection)
-                RoundedRectangleWithText(text : HomePageSelection.WATCHED).padding().environmentObject(selection)
-            }
-            .overlay(RoundedRectangle(cornerRadius: 50).stroke(Color.blue, lineWidth: 2))
+        HStack {
+            ScrollView(.horizontal) {
+                HStack {
+                    RoundedRectangleWithText(text : HomePageSelection.POPULAR).padding().environmentObject(selection)
+                    RoundedRectangleWithText(text : HomePageSelection.GENRE).padding().environmentObject(selection)
+                    RoundedRectangleWithText(text : HomePageSelection.MY_LIST).padding().environmentObject(selection)
+                    RoundedRectangleWithText(text : HomePageSelection.WATCHED).padding().environmentObject(selection)
+                }
+            }.overlay(RoundedRectangle(cornerRadius: 50).stroke(Color.blue, lineWidth: 2)).frame(width : 200, height : .infinity).scrollIndicators(ScrollIndicatorVisibility.never)
         }
     }
 }

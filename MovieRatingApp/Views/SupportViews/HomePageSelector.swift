@@ -8,6 +8,9 @@
 import Foundation
 import SwiftUI
 
+/**
+ This struct is a HomePageSelector, wherein options are displayed to the user. These options are presented in a Horizontal fashion, displaying two items at a time, with the user being able to swipe through the options to show more.
+ */
 struct HomePageSelector : View {
     
     @EnvironmentObject var selection : HomePageSelection

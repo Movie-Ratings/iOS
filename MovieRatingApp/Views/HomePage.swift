@@ -13,22 +13,30 @@ struct HomePage : View {
     @EnvironmentObject var app : AppState
     @EnvironmentObject var manager : Manager
     
+    @StateObject var selection : HomePageSelection = HomePageSelection()
+    
     var body : some View {
-        Group { //Header
-            HStack {
-                Text("Popular").bold()
-                Spacer()
+        
+        VStack {
+            Group {
+                HomePageSelector().environmentObject(selection)
             }
-            Rectangle().frame(width : .infinity, height : 1)
-        }
-        Group { //Movie Information
-            ScrollView {
-                VStack {
-                    ForEach(manager.movies) {movie in
-                        if(movie !== manager.movies[0]) {
-                            Rectangle().frame(width: .infinity, height: 1).padding()
+            Group { //Header
+                HStack {
+                    Text("Popular").bold()
+                    Spacer()
+                }
+                Rectangle().frame(width : .infinity, height : 1)
+            }
+            Group { //Movie Information
+                ScrollView {
+                    VStack {
+                        ForEach(manager.movies) {movie in
+                            if(movie !== manager.movies[0]) {
+                                Rectangle().frame(width: .infinity, height: 1).padding()
+                            }
+                            MovieView(movie : movie).padding()
                         }
-                        MovieView(movie : movie).padding()
                     }
                 }
             }
@@ -45,12 +53,8 @@ struct HomePage_Previews: PreviewProvider {
     static var previews: some View {
         
         VStack {
-            if(loaded) {
-                HomePage().environmentObject(AppState()).environmentObject(manager)
-            }
-            else {
-                LoadingIcon()
-            }
+            HomePage().environmentObject(AppState()).environmentObject(manager)
+
         }.onAppear() {
             manager.load() { succces in
                 loaded = succces
@@ -100,5 +104,17 @@ struct LoadingIcon : View {
      */
     init() {
         self.time = 30
+    }
+}
+
+class HomePageSelection : ObservableObject {
+    static let POPULAR = "Popular"
+    static let GENRE = "Genre"
+    static let NONE = "N/A"
+    
+    @Published var selection : String
+    
+    init() {
+        selection = HomePageSelection.NONE
     }
 }

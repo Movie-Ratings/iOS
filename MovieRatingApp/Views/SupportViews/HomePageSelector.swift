@@ -17,15 +17,15 @@ struct HomePageSelector : View {
     
     var body : some View {
         HStack {
-            ScrollView(.horizontal) {
-                HStack {
-                    RoundedRectangleWithText(text : HomePageSelection.POPULAR).padding().environmentObject(selection)
-                    RoundedRectangleWithText(text : HomePageSelection.GENRE).padding().environmentObject(selection)
-                    RoundedRectangleWithText(text : HomePageSelection.MY_LIST).padding().environmentObject(selection)
-                    RoundedRectangleWithText(text : HomePageSelection.WATCHED).padding().environmentObject(selection)
-                }
-            }.overlay(RoundedRectangle(cornerRadius: 50).stroke(Color.blue, lineWidth: 2)).frame(width : 200, height : .infinity).scrollIndicators(ScrollIndicatorVisibility.never)
-        }
+                ScrollView(.horizontal) {
+                    HStack {
+                        RoundedRectangleWithText(text : HomePageSelection.POPULAR).padding().environmentObject(selection)
+                        RoundedRectangleWithText(text : HomePageSelection.GENRE).padding().environmentObject(selection)
+                        RoundedRectangleWithText(text : HomePageSelection.MY_LIST).padding().environmentObject(selection)
+                        RoundedRectangleWithText(text : HomePageSelection.WATCHED).padding().environmentObject(selection)
+                    }
+                }.scrollIndicators(ScrollIndicatorVisibility.never)
+            }
     }
 }
 
@@ -40,8 +40,8 @@ struct RoundedRectangleWithText: View {
             Text(text)
                 .padding()
                 .background(
-                    self.text == selection.selection ? RoundedRectangle(cornerRadius: 50).fill(Color.blue.opacity(0.2)) : RoundedRectangle(cornerRadius: 50).fill(Color.white.opacity(0.2))
-                )
+                    self.text == selection.selection ? RoundedRectangle(cornerRadius: 50).fill(Color.red) : RoundedRectangle(cornerRadius: 50).fill(Color.clear)
+                ).foregroundColor(self.text == selection.selection ? Color.white : Color.black)
         }.onTapGesture {
             selection.selection = text
         }

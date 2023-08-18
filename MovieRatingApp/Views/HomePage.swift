@@ -19,6 +19,13 @@ struct HomePage : View {
         
         VStack {
             Group {
+                HStack {
+                    Spacer()
+                    SearchBar()
+                    Spacer()
+                }.padding()
+            }
+            Group {
                 HomePageSelector().environmentObject(selection)
             }
             Group { //Header
@@ -26,7 +33,7 @@ struct HomePage : View {
                     Text("Popular").bold()
                     Spacer()
                 }
-                Rectangle().frame(width : .infinity, height : 1)
+                Rectangle().frame(width : .infinity, height : 2)
             }
             Group { //Movie Information
                 ScrollView {

@@ -24,6 +24,7 @@
 		A49E153A2A8AF61D0045D8AB /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E15392A8AF61D0045D8AB /* MovieView.swift */; };
 		A49E153C2A8C31D00045D8AB /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E153B2A8C31D00045D8AB /* MovieDetailView.swift */; };
 		A49E153E2A8ECD080045D8AB /* HomePageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E153D2A8ECD080045D8AB /* HomePageSelector.swift */; };
+		A49E15402A8FC08A0045D8AB /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E153F2A8FC08A0045D8AB /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		A49E15392A8AF61D0045D8AB /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
 		A49E153B2A8C31D00045D8AB /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
 		A49E153D2A8ECD080045D8AB /* HomePageSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageSelector.swift; sourceTree = "<group>"; };
+		A49E153F2A8FC08A0045D8AB /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				A49E15392A8AF61D0045D8AB /* MovieView.swift */,
 				A49E153B2A8C31D00045D8AB /* MovieDetailView.swift */,
 				A49E153D2A8ECD080045D8AB /* HomePageSelector.swift */,
+				A49E153F2A8FC08A0045D8AB /* SearchBar.swift */,
 			);
 			path = SupportViews;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				A49E15162A87CCF50045D8AB /* ContentView.swift in Sources */,
 				A49E15382A8AF15F0045D8AB /* AppState.swift in Sources */,
 				A49E15292A87DF180045D8AB /* LoginView.swift in Sources */,
+				A49E15402A8FC08A0045D8AB /* SearchBar.swift in Sources */,
 				A49E15142A87CCF50045D8AB /* MovieRatingAppApp.swift in Sources */,
 				A49E153C2A8C31D00045D8AB /* MovieDetailView.swift in Sources */,
 				A49E152D2A8AE26E0045D8AB /* HomePage.swift in Sources */,

@@ -23,6 +23,7 @@ struct HomePageSelector : View {
                         RoundedRectangleWithText(text : HomePageSelection.GENRE).padding().environmentObject(selection)
                         RoundedRectangleWithText(text : HomePageSelection.MY_LIST).padding().environmentObject(selection)
                         RoundedRectangleWithText(text : HomePageSelection.WATCHED).padding().environmentObject(selection)
+                        RoundedRectangleWithText(text : HomePageSelection.SEARCH).padding().environmentObject(selection)
                     }
                 }.scrollIndicators(ScrollIndicatorVisibility.never)
             }
@@ -53,11 +54,11 @@ class HomePageSelection : ObservableObject {
     static let GENRE = "Genre"
     static let MY_LIST = "My List"
     static let WATCHED = "Watched"
-    static let NONE = "N/A"
+    static let SEARCH = "Search"
     
     @Published var selection : String
     
     init() {
-        selection = HomePageSelection.NONE
+        selection = HomePageSelection.POPULAR
     }
 }

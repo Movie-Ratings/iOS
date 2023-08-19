@@ -9,13 +9,11 @@ import Foundation
 
 class Manager : ObservableObject {
     
-    @Published var movies : [Movie]
-    
     @Published var selectedMovie : Movie?
     
-    public func insertMovies(movies : [Movie]) {
-        self.movies = movies
-    }
+    @Published var popular : [Movie]
+    
+    @Published var search_results : [Movie]
     
     /**
         Loads data from the backend into a model accessble by the front end.
@@ -26,7 +24,14 @@ class Manager : ObservableObject {
         }
     }
     
+    public func loadPopular(completion : @escaping (Bool) -> ()) {
+        APIHelper.insertPopular(into : self) {result in
+            completion(result)
+        }
+    }
+    
     init() {
-        movies = [Movie]()
+        popular = [Movie]()
+        search_results = [Movie]()
     }
 }

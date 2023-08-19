@@ -101,6 +101,13 @@ public class APIHelper {
         dataTask.resume()
     }
     
+    static func insertPopular(into : Manager, completion : @escaping (Bool) -> ()) {
+        
+    }
+    
+    static func insertGenre(into : Manager, completion : @escaping (Bool) -> ()) {
+        
+    }
     static func insertMovies(into : Manager, completion: @escaping (Bool) -> ()) {
         print("Inside insertMovies()")
         guard let url = URL(string : "http://localhost:8080/api/movie/") else {

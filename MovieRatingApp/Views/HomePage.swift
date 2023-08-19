@@ -38,12 +38,12 @@ struct HomePage : View {
             Group { //Movie Information
                 ScrollView {
                     VStack {
-                        ForEach(manager.movies) {movie in
-                            if(movie !== manager.movies[0]) {
-                                Rectangle().frame(width: .infinity, height: 1).padding()
-                            }
-                            MovieView(movie : movie).padding()
-                        }
+                        switch(selection.selection) {
+                        case HomePageSelection.POPULAR : PopularView()
+                        case HomePageSelection.GENRE : GenreView()
+                        case HomePageSelection.SEARCH : SearchView()
+                        case HomePageSelection.MY_LIST : MyListView()
+                        case HomePageSelection.WATCHED : WatchedView()
                     }
                 }
             }

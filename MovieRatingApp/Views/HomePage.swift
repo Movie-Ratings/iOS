@@ -13,22 +13,39 @@ struct HomePage : View {
     @EnvironmentObject var app : AppState
     @EnvironmentObject var manager : Manager
     
+    @StateObject var selection : HomePageSelection = HomePageSelection()
+    
     var body : some View {
-        Group { //Header
-            HStack {
-                Text("Popular").bold()
-                Spacer()
+        
+        VStack {
+            Group {
+                HStack {
+                    Spacer()
+                    SearchBar()
+                    Spacer()
+                }.padding()
             }
-            Rectangle().frame(width : .infinity, height : 1)
-        }
-        Group { //Movie Information
-            ScrollView {
-                VStack {
-                    ForEach(manager.movies) {movie in
-                        if(movie !== manager.movies[0]) {
-                            Rectangle().frame(width: .infinity, height: 1).padding()
+            Group {
+                HomePageSelector().environmentObject(selection)
+            }
+            Group { //Header
+                HStack {
+                    Text("Popular").bold()
+                    Spacer()
+                }
+                Rectangle().frame(width : .infinity, height : 2)
+            }
+            Group { //Movie Information
+                ScrollView {
+                    VStack {
+                        switch(selection.selection) {
+                        case HomePageSelection.POPULAR : PopularView()
+                            //                        case HomePageSelection.GENRE : GenreView()
+                            //                        case HomePageSelection.SEARCH : SearchView()
+                            //                        case HomePageSelection.MY_LIST : MyListView()
+                            //                        case HomePageSelection.WATCHED :WatchedView()
+                        default : PopularView()
                         }
-                        MovieView(movie : movie).padding()
                     }
                 }
             }
@@ -45,14 +62,10 @@ struct HomePage_Previews: PreviewProvider {
     static var previews: some View {
         
         VStack {
-            if(loaded) {
-                HomePage().environmentObject(AppState()).environmentObject(manager)
-            }
-            else {
-                LoadingIcon()
-            }
+            HomePage().environmentObject(AppState()).environmentObject(manager)
+            
         }.onAppear() {
-            manager.load() { succces in
+            manager.loadPopular() { succces in
                 loaded = succces
             }
         }
@@ -90,7 +103,7 @@ struct LoadingIcon : View {
     }
     
     /**
-            Initalizes a LoadingIcon instance with a timer of *time* seconds. After *time* seconds, an error message appears.
+     Initalizes a LoadingIcon instance with a timer of *time* seconds. After *time* seconds, an error message appears.
      */
     init(time : Int) {
         self.time = time

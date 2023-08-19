@@ -101,18 +101,63 @@ public class APIHelper {
         dataTask.resume()
     }
     
-    static func insertMovies(into : Manager, completion: @escaping (Bool) -> ()) {
-        print("Inside insertMovies()")
-        guard let url = URL(string : "http://localhost:8080/api/movie/") else {
+    static func insertPopular(into : Manager, completion : @escaping (Bool) -> ()) {
+        
+        injectPopular() {
+            guard let url = URL(string : "http://localhost:8080/api/movie/popular/") else {
+                print("URL has mistake")
+                completion(false)
+                return
+            }
+            
+            let session = URLSession.shared
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            
+            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            
+            let dataTask = session.dataTask(with: url) { data, response, error in
+                print("Inside dataTask")
+                if let error = error {
+                    // Handle error
+                    print("Error: \(error)")
+                    completion(false)
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("Status code: \(httpResponse.statusCode)")
+                    
+                    if let data = data {
+                        if let movies = processMovies(data : data){
+                            into.insertPopular(movies: movies)
+                            completion(true)
+                        }
+                    }
+                }
+                completion(false)
+            }
+            dataTask.resume()
+        }
+    }
+    
+    /**
+            Injects popular movies into our database. This method invokes the backend's API request which loads data from the Movie Database and inserts it into its own reference.
+     
+            This method should be invoked anytime the user loads popular data, as the most popular movies are subject to change rather quickly.
+     */
+    private static func injectPopular(completion : @escaping () -> ()) {
+        guard let url = URL(string : "http://localhost:8080/api/movie/popular/") else {
             print("URL has mistake")
-            completion(false)
+            completion()
             return
         }
         
         let session = URLSession.shared
         
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+        request.httpMethod = "POST"
         
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
@@ -121,24 +166,20 @@ public class APIHelper {
             if let error = error {
                 // Handle error
                 print("Error: \(error)")
-                completion(false)
+                completion()
                 return
             }
             
             if let httpResponse = response as? HTTPURLResponse {
                 print("Status code: \(httpResponse.statusCode)")
-                
-                if let data = data {
-                    if let movies = processMovies(data : data){
-                        into.insertMovies(movies: movies)
-                        completion(true)
-                    }
-                }
             }
-            completion(false)
+            completion()
         }
         dataTask.resume()
-        
+    }
+    
+    static func insertGenre(into : Manager, completion : @escaping (Bool) -> ()) {
+    
     }
     
     private static func processMovies(data : Data) -> [Movie]? {

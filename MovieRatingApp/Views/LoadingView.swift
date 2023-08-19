@@ -17,7 +17,7 @@ struct LoadingView : View {
         VStack {
             LoadingIcon()
         }.onAppear(perform : {
-            manager.load() { success in
+            manager.loadPopular() { success in
                 if(success) {
                     app.state = AppState.LOGIN
                 }

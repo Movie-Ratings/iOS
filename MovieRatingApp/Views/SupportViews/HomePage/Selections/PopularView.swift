@@ -17,9 +17,9 @@ struct PopularView : View {
         
         VStack {
             ForEach(manager.popular) {movie in
-                if(movie !== manager.movies[0]) {
-                    Rectangle().frame(width: .infinity, height: 1).padding()
-                }
+//                if(movie !== manager.movies[0]) {
+//                    Rectangle().frame(width: .infinity, height: 1).padding()
+//                }
                 MovieView(movie : movie).padding()
             }
         }

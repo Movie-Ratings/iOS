@@ -40,10 +40,12 @@ struct HomePage : View {
                     VStack {
                         switch(selection.selection) {
                         case HomePageSelection.POPULAR : PopularView()
-                        case HomePageSelection.GENRE : GenreView()
-                        case HomePageSelection.SEARCH : SearchView()
-                        case HomePageSelection.MY_LIST : MyListView()
-                        case HomePageSelection.WATCHED : WatchedView()
+                            //                        case HomePageSelection.GENRE : GenreView()
+                            //                        case HomePageSelection.SEARCH : SearchView()
+                            //                        case HomePageSelection.MY_LIST : MyListView()
+                            //                        case HomePageSelection.WATCHED :WatchedView()
+                        default : PopularView()
+                        }
                     }
                 }
             }
@@ -61,9 +63,9 @@ struct HomePage_Previews: PreviewProvider {
         
         VStack {
             HomePage().environmentObject(AppState()).environmentObject(manager)
-
+            
         }.onAppear() {
-            manager.load() { succces in
+            manager.loadPopular() { succces in
                 loaded = succces
             }
         }
@@ -101,7 +103,7 @@ struct LoadingIcon : View {
     }
     
     /**
-            Initalizes a LoadingIcon instance with a timer of *time* seconds. After *time* seconds, an error message appears.
+     Initalizes a LoadingIcon instance with a timer of *time* seconds. After *time* seconds, an error message appears.
      */
     init(time : Int) {
         self.time = time

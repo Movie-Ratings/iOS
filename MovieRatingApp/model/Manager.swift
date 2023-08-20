@@ -15,6 +15,8 @@ class Manager : ObservableObject {
     
     @Published var search_results : [Movie]
     
+    @Published var my_list : [Movie]
+    
     @Published var username : String
     
     /**
@@ -47,9 +49,20 @@ class Manager : ObservableObject {
         }
     }
     
+    public func set_username(username : String, completion : @escaping () -> ()) {
+        self.username = username
+        APIHelper.getMyList(username : username) {movies in
+            if let my_movies = movies {
+                self.my_list = my_movies
+            }
+            completion()
+        }
+    }
+    
     init() {
         popular = [Movie]()
         search_results = [Movie]()
+        my_list = [Movie]()
         self.username = ""
     }
 }

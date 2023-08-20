@@ -15,6 +15,8 @@ class Manager : ObservableObject {
     
     @Published var search_results : [Movie]
     
+    @Published var username : String
+    
     /**
         Loads data from the backend into a model accessble by the front end.
      */
@@ -24,6 +26,8 @@ class Manager : ObservableObject {
 //        }
 //    }
     
+    /// Invokes an API request to load the most popular movies from TMDB. These movies populate the internal field *popular*
+    /// - Parameter completion: <#completion description#>
     public func loadPopular(completion : @escaping (Bool) -> ()) {
         APIHelper.insertPopular(into : self) {result in
             completion(result)
@@ -37,8 +41,15 @@ class Manager : ObservableObject {
         self.popular = movies
     }
     
+    public func addToMyList(movie : Movie, completion : @escaping (Bool) -> ()) {
+        APIHelper.addToMyList(movie : movie, username : username) {result in
+            completion(result)
+        }
+    }
+    
     init() {
         popular = [Movie]()
         search_results = [Movie]()
+        self.username = ""
     }
 }

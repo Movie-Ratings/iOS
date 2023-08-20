@@ -11,6 +11,7 @@ import SwiftUI
 struct LoginView : View {
     
     @EnvironmentObject var app : AppState
+    @EnvironmentObject var manager : Manager
     
     @State var username : String = ""
     
@@ -22,7 +23,9 @@ struct LoginView : View {
                 app.login(username : username.lowercased()) { value in
                     if(value) {
                         print("SUCCESS")
-                        app.state = AppState.HOME_PAGE
+                        manager.set_username(username: username.lowercased()) {
+                            app.state = AppState.HOME_PAGE
+                        }
                     }
                     else {
                         print("NOT LOGGED IN")

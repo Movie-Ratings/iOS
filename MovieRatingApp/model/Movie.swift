@@ -46,7 +46,7 @@ class Movie : Decodable, Identifiable {
      
         
      */
-    private var poster_path : String
+    var poster_path : String
     
     /**
      The backdrop path to the movie's backdrop (the backdrop is an accopyming image that is not as seen as often as the poster).. This  path is actually the path that you must specifiy in the URL to obtain the actual poster image.
@@ -58,7 +58,7 @@ class Movie : Decodable, Identifiable {
      
      This field should be maintained as a field for purposes relating to sending/receiving JSON data. When accessing an API to retrieve Movie data from, it is best to keep this field as the JSON data will contain a backdrop_path field.
      */
-    private var backdrop_path : String
+    var backdrop_path : String
     
     /**
             The release date of this movie.

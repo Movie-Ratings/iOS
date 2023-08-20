@@ -101,6 +101,92 @@ public class APIHelper {
         dataTask.resume()
     }
     
+    static func getMyList(username : String, completion : @escaping ([Movie]?) -> ()) {
+        // Create the URL for your API endpoint
+        if let url = URL(string: "http://localhost:8080/api/movies/my_list?username=\(username)") {
+
+            // Create a URLRequest
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+
+            // Set the HTTP headers
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            // Create a URLSession task to send the request
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    
+                }
+                if let data = data {
+                    if let movies = processMovies(data : data) {
+                        completion(movies)
+                    }
+                    
+                }
+                completion(nil)
+            }
+            
+            // Start the URLSession task
+            task.resume()
+        }
+    }
+    
+    static func addToMyList(movie: Movie, username : String, completion : @escaping (Bool) -> ()) {
+        
+        //Create the data as a Dictionary first
+        let jsonData : [String : Any] = [
+            "movie" : [
+                "id" : movie.id,
+                "title" : movie.title,
+                "overview" : movie.overview,
+                "poster_path" : movie.poster_path,
+                "backdrop_path" : movie.backdrop_path,
+                "release_date" : movie.release_date
+            ],
+            "username" : username
+        ]
+        //Convert the Dictionary to JSON data
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: jsonData, options: [])
+
+            // Create the URL for your API endpoint
+            if let url = URL(string: "http://localhost:8080/api/movies/my_list") {
+
+                // Create a URLRequest
+                var request = URLRequest(url: url)
+                request.httpMethod = "POST"
+
+                // Set the HTTP headers
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+                // Set the HTTP body with the JSON data
+                request.httpBody = jsonData
+
+                // Create a URLSession task to send the request
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    if let error = error {
+                        print("Error: \(error)")
+                        
+                    }
+                    if let httpResponse = response as? HTTPURLResponse {
+                        if(httpResponse.statusCode == 200) {
+                            completion(true)
+                        }
+                    }
+                    completion(false)
+                }
+                
+                // Start the URLSession task
+                task.resume()
+            }
+        } catch {
+            print("Error converting dictionary to JSON data: \(error)")
+            completion(false)
+        }
+        
+    }
+    
     static func insertPopular(into : Manager, completion : @escaping (Bool) -> ()) {
         
         injectPopular() {

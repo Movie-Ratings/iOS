@@ -20,8 +20,10 @@ struct PopularView : View {
 //                if(movie !== manager.movies[0]) {
 //                    Rectangle().frame(width: .infinity, height: 1).padding()
 //                }
-                MovieView(movie : movie).padding()
+                MovieView(movie : movie).padding().environmentObject(current).environmentObject(manager)
             }
+        }.onAppear() {
+            manager.loadPopular() { result in }
         }
     }
 }

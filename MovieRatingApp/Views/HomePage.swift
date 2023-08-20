@@ -42,7 +42,7 @@ struct HomePage : View {
                         case HomePageSelection.POPULAR : PopularView()
                             //                        case HomePageSelection.GENRE : GenreView()
                             //                        case HomePageSelection.SEARCH : SearchView()
-                            //                        case HomePageSelection.MY_LIST : MyListView()
+                        case HomePageSelection.MY_LIST : MyListView()
                             //                        case HomePageSelection.WATCHED :WatchedView()
                         default : PopularView()
                         }

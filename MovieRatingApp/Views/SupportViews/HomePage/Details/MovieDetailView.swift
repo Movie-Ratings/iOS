@@ -77,9 +77,7 @@ struct AddToMyListButton : View {
     var body : some View {
         Image(systemName : "plus.circle.fill").resizable().frame(width : 30, height : 30).foregroundColor(Color.red).onTapGesture {
             manager.addToMyList(movie: movie) {result in
-                print("Made it through addToMyList")
-                print(result)
-                popover_communicator.addToListIssue = result
+                popover_communicator.addToListIssue = !result
             }
         }
     }
@@ -93,7 +91,7 @@ class PopoverCommunicator : ObservableObject {
     /**
             This field is used to communicate when there is an issue with adding a movie to the list.
      */
-    @State var addToListIssue : Bool
+    @Published var addToListIssue : Bool
     
     init() {
         addToListIssue = false
